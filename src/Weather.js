@@ -1,33 +1,24 @@
-import { useEffect, useState } from 'react';
-
-const sleep = delay => new Promise(resolve => setTimeout(resolve, delay));
+import { useQuery } from 'react-query';
 
 const fetchWeather = async () => {
-  await sleep(2000);
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=35.6895&lon=139.6917&appid=`);
+  const appid = '';
+  const latitude = '35.6895';
+  const longitude = '139.6917';
+  const language = 'en';
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language}&appid=${appid}`);
   if (res.ok){ return res.json(); }
   throw new Error(res.statusText);
 };
 
-export default function Weather({ id }) {
-  const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    setLoading(true);
-    fetchWeather()
-      .then(result => setData(result))
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+export default function Weather() {
+  const { data, isLoading, isError, error } = useQuery('weather', fetchWeather);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  if (error) {
-    return <p>Error: {error}</p>;
+  if (isError) {
+    return <p>Error: {error.message}</p>;
   }
 
   return (
