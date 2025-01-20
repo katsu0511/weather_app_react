@@ -1,7 +1,11 @@
 import { useQuery } from 'react-query';
 
 const fetchWeather = async () => {
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=35.6895&lon=139.6917&appid=`);
+  const appid = '';
+  const latitude = '35.6895';
+  const longitude = '139.6917';
+  const language = 'en';
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language}&appid=${appid}`);
   if (res.ok){ return res.json(); }
   throw new Error(res.statusText);
 };
