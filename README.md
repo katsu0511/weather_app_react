@@ -68,4 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 # weather-app-react
+
+## environment building
+
+You need to prepare a text file to use this app.
+
+Make a text file named 'appid.txt' and put it in the `src` directory directly.
+Input your appid for Open Weather Map. Do not include any Line Breaks.
