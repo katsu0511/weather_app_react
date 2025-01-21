@@ -1,13 +1,20 @@
 import { useQuery } from 'react-query';
+import text from './appid.txt';
 
 const fetchWeather = async () => {
-  const appid = '';
+  const appid = await getAppid();
   const latitude = '35.6895';
   const longitude = '139.6917';
   const language = 'en';
   const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language}&appid=${appid}`);
   if (res.ok){ return res.json(); }
   throw new Error(res.statusText);
+};
+
+const getAppid = async () => {
+  console.log(text);
+  const data = await fetch(text);
+  return data.text();
 };
 
 export default function Weather() {
