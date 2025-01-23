@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import text from './appid.txt';
+import cities from './city.json';
 
 const fetchWeather = async () => {
   const appid = await getAppid();
@@ -12,7 +13,6 @@ const fetchWeather = async () => {
 };
 
 const getAppid = async () => {
-  console.log(text);
   const data = await fetch(text);
   return data.text();
 };
@@ -28,12 +28,23 @@ export default function Weather() {
     return <p>Error: {error.message}</p>;
   }
 
+  const cityArray = [];
+  for (let i = 0; i < cities.length; i++) {
+    cityArray.push(<option>{cities[i].name}</option>);
+  }
+
   return (
-    <figure>
-      <img
-      src={`https://openweathermap.org/img/wn/${data?.weather?.[0]?.icon}.png`}
-      alt={data?.weather?.[0]?.main} />
-      <figcaption>{data?.weather?.[0]?.description}</figcaption>
-    </figure>
+    <div>
+      <select>
+        <option>-</option>
+        {cityArray}
+      </select>
+      <figure>
+        <img
+        src={`https://openweathermap.org/img/wn/${data?.weather?.[0]?.icon}.png`}
+        alt={data?.weather?.[0]?.main} />
+        <figcaption>{data?.weather?.[0]?.description}</figcaption>
+      </figure>
+    </div>
   );
 }
