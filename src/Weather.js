@@ -2,10 +2,16 @@ import { useState } from "react";
 import { useQuery } from 'react-query';
 import text from './appid.txt';
 import cities from './city.json';
+import languages from './language.json';
 
 const cityArray = [];
 for (let i = 0; i < cities.length; i++) {
-  cityArray.push(<option>{cities[i].name}</option>);
+  cityArray.push(<option value={cities[i].name}>{cities[i].name}</option>);
+}
+
+const languageArray = [];
+for (let i = 0; i < languages.length; i++) {
+  languageArray.push(<option value={languages[i].abbr}>{languages[i].lang}</option>);
 }
 
 const getAppid = async () => {
@@ -15,12 +21,13 @@ const getAppid = async () => {
 
 export default function Weather() {
   const [city, setCity] = useState("Tokyo");
+  const [language, setLanguage] = useState("en");
 
   const fetchWeather = async () => {
     const appid = await getAppid();
     const longitude = getCoordinate().lon;
     const latitude = getCoordinate().lat;
-    const language = 'en';
+    const language = getLanguage();
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language}&appid=${appid}`);
     if (res.ok){ return res.json(); }
     throw new Error(res.statusText);
@@ -34,12 +41,24 @@ export default function Weather() {
     }
   };
 
+  const getLanguage = () => {
+    for (let i = 0; i < languages.length; i++) {
+      if (languages[i].abbr === language) {
+        return languages[i].abbr;
+      }
+    }
+  };
+
   const cityChange = () => {
     const citySelect = document.getElementById('city_select');
-    if (citySelect.value !== '-') {
-      setCity(citySelect.value);
-      alert('changed');
-    }
+    setCity(citySelect.value);
+    alert('city changed');
+  }
+
+  const languageChange = () => {
+    const langSelect = document.getElementById('lang_select');
+    setLanguage(langSelect.value);
+    alert('language changed');
   }
 
   const { data, isLoading, isError, error } = useQuery('weather', fetchWeather);
@@ -57,6 +76,10 @@ export default function Weather() {
       <select id="city_select" onChange={cityChange}>
         {cityArray}
       </select>
+      <select id="lang_select" onChange={languageChange}>
+        {languageArray}
+      </select>
+      <h1>{city}</h1>
       <figure>
         <img
         src={`https://openweathermap.org/img/wn/${data?.weather?.[0]?.icon}.png`}
