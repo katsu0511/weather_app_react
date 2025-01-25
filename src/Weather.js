@@ -61,15 +61,7 @@ export default function Weather() {
     alert('language changed');
   }
 
-  const { data, isLoading, isError, error } = useQuery('weather', fetchWeather);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (isError) {
-    return <p>Error: {error.message}</p>;
-  }
+  const { data } = useQuery('weather', fetchWeather);
 
   return (
     <div>
