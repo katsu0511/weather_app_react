@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from 'react-query';
-import text from './appid.txt';
+import appid from './appid.txt';
 import cities from './city.json';
 import languages from './language.json';
 
@@ -15,7 +15,7 @@ for (let i = 0; i < languages.length; i++) {
 }
 
 const getAppid = async () => {
-  const data = await fetch(text);
+  const data = await fetch(appid);
   return data.text();
 };
 
