@@ -28,7 +28,7 @@ export default function Weather() {
     const longitude = getCoordinate().lon;
     const latitude = getCoordinate().lat;
     const language = getLanguage();
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language}&appid=${appid}`);
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language}&units=metric&appid=${appid}`);
     if (res.ok){ return res.json(); }
     throw new Error(res.statusText);
   };
@@ -79,12 +79,18 @@ export default function Weather() {
       <select id="lang_select" onChange={languageChange}>
         {languageArray}
       </select>
-      <h1>{city}</h1>
+      <h1>{data?.name}</h1>
       <figure>
         <img
         src={`https://openweathermap.org/img/wn/${data?.weather?.[0]?.icon}.png`}
         alt={data?.weather?.[0]?.main} />
         <figcaption>{data?.weather?.[0]?.description}</figcaption>
+        <figcaption>Temperature: {data?.main?.temp}</figcaption>
+        <figcaption>Feels like: {data?.main?.feels_like}</figcaption>
+        <figcaption>Pressure: {data?.main?.pressure}hPa</figcaption>
+        <figcaption>Humidity: {data?.main?.humidity}%</figcaption>
+        <figcaption>Wind speed: {data?.wind.speed}m/s</figcaption>
+        <figcaption>Min: {data?.main?.temp_min}° ~ Max: {data?.main?.temp_max}°</figcaption>
       </figure>
     </div>
   );
