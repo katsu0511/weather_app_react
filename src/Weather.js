@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from 'react-query';
-import text from './appid.txt';
+import appid from './appid.txt';
 import cities from './city.json';
 import languages from './language.json';
 
@@ -15,7 +15,7 @@ for (let i = 0; i < languages.length; i++) {
 }
 
 const getAppid = async () => {
-  const data = await fetch(text);
+  const data = await fetch(appid);
   return data.text();
 };
 
@@ -61,15 +61,7 @@ export default function Weather() {
     alert('language changed');
   }
 
-  const { data, isLoading, isError, error } = useQuery('weather', fetchWeather);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (isError) {
-    return <p>Error: {error.message}</p>;
-  }
+  const { data } = useQuery('weather', fetchWeather);
 
   return (
     <div>
@@ -85,11 +77,11 @@ export default function Weather() {
         src={`https://openweathermap.org/img/wn/${data?.weather?.[0]?.icon}.png`}
         alt={data?.weather?.[0]?.main} />
         <figcaption>{data?.weather?.[0]?.description}</figcaption>
-        <figcaption>Temperature: {data?.main?.temp}</figcaption>
-        <figcaption>Feels like: {data?.main?.feels_like}</figcaption>
-        <figcaption>Pressure: {data?.main?.pressure}hPa</figcaption>
-        <figcaption>Humidity: {data?.main?.humidity}%</figcaption>
-        <figcaption>Wind speed: {data?.wind.speed}m/s</figcaption>
+        <figcaption>Temperature: {data?.main?.temp}°</figcaption>
+        <figcaption>Feels like: {data?.main?.feels_like}°</figcaption>
+        <figcaption>Pressure: {data?.main?.pressure} hPa</figcaption>
+        <figcaption>Humidity: {data?.main?.humidity} %</figcaption>
+        <figcaption>Wind speed: {data?.wind.speed} m/s</figcaption>
         <figcaption>Min: {data?.main?.temp_min}° ~ Max: {data?.main?.temp_max}°</figcaption>
       </figure>
     </div>
