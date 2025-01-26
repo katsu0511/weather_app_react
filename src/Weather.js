@@ -6,12 +6,12 @@ import languages from './language.json';
 
 const cityArray = [];
 for (let i = 0; i < cities.length; i++) {
-  cityArray.push(<option value={cities[i].name}>{cities[i].name}</option>);
+  cityArray.push(<option value={cities[i].name} key={cities[i].name}>{cities[i].name}</option>);
 }
 
 const languageArray = [];
 for (let i = 0; i < languages.length; i++) {
-  languageArray.push(<option value={languages[i].abbr}>{languages[i].lang}</option>);
+  languageArray.push(<option value={languages[i].abbr} key={languages[i].abbr}>{languages[i].lang}</option>);
 }
 
 const getAppid = async () => {
