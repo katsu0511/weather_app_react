@@ -76,13 +76,13 @@ export default function Weather() {
         <img
         src={`https://openweathermap.org/img/wn/${data?.weather?.[0]?.icon}.png`}
         alt={data?.weather?.[0]?.main} />
-        <figcaption>{data?.weather?.[0]?.description}</figcaption>
-        <figcaption>Temperature: {data?.main?.temp}°</figcaption>
-        <figcaption>Feels like: {data?.main?.feels_like}°</figcaption>
-        <figcaption>Pressure: {data?.main?.pressure} hPa</figcaption>
-        <figcaption>Humidity: {data?.main?.humidity} %</figcaption>
-        <figcaption>Wind speed: {data?.wind.speed} m/s</figcaption>
-        <figcaption>Min: {data?.main?.temp_min}° ~ Max: {data?.main?.temp_max}°</figcaption>
+        <p>{data?.weather?.[0]?.description}</p>
+        <p>Temperature: {data?.main?.temp}°</p>
+        <p>Feels like: {data?.main?.feels_like}°</p>
+        <p>Pressure: {data?.main?.pressure} hPa</p>
+        <p>Humidity: {data?.main?.humidity} %</p>
+        <p>Wind speed: {data?.wind.speed} m/s</p>
+        <p>Min: {data?.main?.temp_min}° ~ Max: {data?.main?.temp_max}°</p>
       </figure>
     </div>
   );
