@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import appid from './appid.txt';
 import cities from './city.json';
 import languages from './language.json';
+import './Weather.css';
 
 const cityArray = [];
 for (let i = 0; i < cities.length; i++) {
@@ -64,7 +65,7 @@ export default function Weather() {
   const { data } = useQuery('weather', fetchWeather);
 
   return (
-    <div>
+    <div className="weather">
       <select id="city_select" onChange={cityChange}>
         {cityArray}
       </select>
