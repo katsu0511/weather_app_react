@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import Weather from './Weather';
 import Loading from './Loading';
-import './App.css';
 
 const cli = new QueryClient({
   defaultOptions: {
