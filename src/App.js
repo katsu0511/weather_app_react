@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import Weather from './Weather';
 import Loading from './Loading';
+import Error from './Error';
 
 const cli = new QueryClient({
   defaultOptions: {
@@ -15,7 +16,7 @@ const cli = new QueryClient({
 function App() {
   return (
     <Suspense fallback={<Loading />}>
-      <ErrorBoundary fallback={<div>Error has happened.</div>}>
+      <ErrorBoundary fallback={<Error />}>
         <QueryClientProvider client={cli}>
           <Weather />
         </QueryClientProvider>
